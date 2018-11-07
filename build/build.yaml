@@ -1,3 +1,6 @@
+variables:
+    FunctionHostPath: C:\\npm\\prefix\\node_modules\\azure-functions-core-tools\\bin\\func.dll
+
 steps:
 
 - task: DotNetCoreCLI@2
