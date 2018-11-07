@@ -1,0 +1,20 @@
+steps:
+
+- task: DotNetCoreCLI@2
+  displayName: Build
+  inputs:
+    projects: src/FunctionApp.sln
+
+- task: Npm@1
+  displayName: Install Azure Functions Core Tools
+  inputs:
+    command: custom
+    verbose: false
+    customCommand: 'install -g azure-functions-core-tools'
+
+- task: DotNetCoreCLI@2
+  displayName: Run Integration Tests
+  inputs:
+    command: test
+    projects: 'src/**/*.IntegrationTest.csproj'
+    arguments: '--no-build'
