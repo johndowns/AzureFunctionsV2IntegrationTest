@@ -1,4 +1,3 @@
-using System.Net.Http;
 using System.Threading.Tasks;
 using FunctionApp.IntegrationTest.Collections;
 using FunctionApp.IntegrationTest.Fixtures;

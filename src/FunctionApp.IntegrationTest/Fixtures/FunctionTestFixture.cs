@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.Net.Http;
+using FunctionApp.IntegrationTest.Settings;
 
 namespace FunctionApp.IntegrationTest.Fixtures
 {
@@ -15,27 +16,25 @@ namespace FunctionApp.IntegrationTest.Fixtures
 
         public FunctionTestFixture()
         {
-            var npmPackagesFolder = @"%appdata%\npm";
-            var useShellExecute = false;
-
-            var functionCliPath = Path.Combine(Environment.ExpandEnvironmentVariables(npmPackagesFolder), "func.cmd");
-            var functionAppFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..", "..", "FunctionApp", "bin", "Debug", "netcoreapp2.1");
+            var dotnetExePath = Environment.ExpandEnvironmentVariables(ConfigurationHelper.Settings.DotnetExecutablePath);
+            var functionHostPath = Environment.ExpandEnvironmentVariables(ConfigurationHelper.Settings.FunctionHostPath);
+            var functionAppFolder = Path.GetRelativePath(Directory.GetCurrentDirectory(), ConfigurationHelper.Settings.FunctionApplicationPath);
 
             _funcHostProcess = new Process
             {
                 StartInfo =
                 {
-                    FileName = functionCliPath,
-                    Arguments = $"start -p {Port}",
+                    FileName = dotnetExePath,
+                    Arguments = $"\"{functionHostPath}\" start -p {Port}",
                     WorkingDirectory = functionAppFolder,
                     CreateNoWindow = true,
-                    UseShellExecute = useShellExecute
+                    UseShellExecute = ConfigurationHelper.Settings.UseShellExecute
                 }
             };
             var success = _funcHostProcess.Start();
             if (!success)
             {
-                throw new InvalidOperationException("Could not start function CLI.");
+                throw new InvalidOperationException("Could not start Azure Functions host.");
             }
 
             Client.BaseAddress = new Uri($"http://localhost:{Port}");
