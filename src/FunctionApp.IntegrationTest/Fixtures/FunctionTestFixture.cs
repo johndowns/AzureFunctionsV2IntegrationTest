@@ -26,9 +26,7 @@ namespace FunctionApp.IntegrationTest.Fixtures
                 {
                     FileName = dotnetExePath,
                     Arguments = $"\"{functionHostPath}\" start -p {Port}",
-                    WorkingDirectory = functionAppFolder,
-                    CreateNoWindow = true,
-                    UseShellExecute = ConfigurationHelper.Settings.UseShellExecute
+                    WorkingDirectory = functionAppFolder
                 }
             };
             var success = _funcHostProcess.Start();

@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using FunctionApp.IntegrationTest.Collections;
 using FunctionApp.IntegrationTest.Fixtures;
+using FunctionApp.IntegrationTest.Settings;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Queue;
 using TestStack.BDDfy;
@@ -14,7 +15,7 @@ namespace FunctionApp.IntegrationTest.Tests
         private readonly FunctionTestFixture _fixture;
 
         private readonly CloudQueue _queue = CloudStorageAccount
-            .DevelopmentStorageAccount
+            .Parse(ConfigurationHelper.Settings.StorageConnectionString)
             .CreateCloudQueueClient()
             .GetQueueReference("greetings");
         
