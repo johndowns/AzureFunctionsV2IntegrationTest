@@ -23,7 +23,6 @@ namespace FunctionApp.IntegrationTest.Tests
         public HelloQueueFunctionTest(FunctionTestFixture fixture)
         {
             _fixture = fixture;
-            Console.WriteLine(ConfigurationHelper.Settings.StorageConnectionString);
         }
 
         [Fact]

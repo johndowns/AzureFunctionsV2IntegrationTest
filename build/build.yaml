@@ -1,7 +1,10 @@
 variables:
+
 - name: FunctionHostPath
   value: C:\\npm\\prefix\\node_modules\\azure-functions-core-tools\\bin\\func.dll
+
 - group: IntegrationTestConnectionStrings
+
 
 steps:
 
