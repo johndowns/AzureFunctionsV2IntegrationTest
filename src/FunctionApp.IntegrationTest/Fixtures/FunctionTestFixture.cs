@@ -36,6 +36,9 @@ namespace FunctionApp.IntegrationTest.Fixtures
             }
 
             Client.BaseAddress = new Uri($"http://localhost:{Port}");
+
+            // TODO
+            Console.WriteLine(ConfigurationHelper.Settings.StorageConnectionString);
         }
 
         public virtual void Dispose()
